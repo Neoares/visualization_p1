@@ -1,6 +1,31 @@
 
 import pandas as pd
 
+NOMS_FAMILIES = [
+    'Arròs, pasta, sucre i llegums',
+    'Begudes i infusions',
+    'Carn, peix i embotits',
+    'Conserves i plats preparats',
+    'Farines i derivats',
+    'Fruites i verdures fresques',
+    'Làctics i derivats',
+    'Olis i greixos'
+]
+
+NOMS_COMARQUES = [
+    'Anoia',
+    'Bages',
+    'Baix Llobregat',
+    'Barcelonès',
+    'Berguedà',
+    'Garraf',
+    'Maresme',
+    'Moianès',
+    'Osona',
+    'Vallès Occidental',
+    'Vallès Oriental'
+ ]
+
 def load_poblacio(path, stack=False):
     df_poblacio = pd.read_csv(path + "poblacio.csv",index_col="NomComarca")
 
@@ -56,19 +81,19 @@ def load_df(path):
     #df_food_ly = df_food[df_food["Any"] == last_year]
 
 def load_beneficiaris_comarca(path):
-    
+
   food_df = pd.read_csv(path+'foodpandas.csv',sep = ',')
   beneficiaris_df = pd.read_csv(path+'beneficiaris.csv',sep = ',')
-  
+
   beneficiaris_df.loc[beneficiaris_df.NomComarca == 'maresme','NomComarca'] = 'Maresme'
-    
+
   food_comarca_any_df = food_df[['NomComarca','Any','Quantitat']].groupby(['NomComarca','Any']).sum()
- 
+
   beneficiaris_quantitat_df = food_comarca_any_df.merge(beneficiaris_df, left_index=True, right_on=['NomComarca','Any'], how='right')
-  
-  beneficiaris_quantitat_df.loc[beneficiaris_quantitat_df.Quantitat.isna(),'Quantitat'] = 0 
+
+  beneficiaris_quantitat_df.loc[beneficiaris_quantitat_df.Quantitat.isna(),'Quantitat'] = 0
   beneficiaris_quantitat_df.Any = beneficiaris_quantitat_df.Any.apply(lambda x: int(x[:4]))
-    
+
   poblacio_df = load_poblacio(path,stack=True)
   beneficiaris_quantitat_df = beneficiaris_quantitat_df.merge(poblacio_df, how='left', left_on = ['NomComarca','Any'], right_on = ['NomComarca','Any'])
 
@@ -77,14 +102,5 @@ def load_beneficiaris_comarca(path):
   beneficiaris_quantitat_df['Quantitat_Normalitzada'] = beneficiaris_quantitat_df['Quantitat_Normalitzada'].apply(lambda x: round(x,2))
   beneficiaris_quantitat_df.loc[beneficiaris_quantitat_df.Beneficiaris_Normalitzat.isna(),['Beneficiaris_Normalitzat','Quantitat_Normalitzada','Poblacio']]= 0
   beneficiaris_quantitat_df['Beneficiaris_Normalitzat'] = beneficiaris_quantitat_df.Beneficiaris_Normalitzat.apply(lambda x: round(x,0))
-	
+
   return beneficiaris_quantitat_df
-	
-	
-	
-	
-	
-	
-	
-	
-	
