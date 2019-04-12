@@ -1,1 +1,3 @@
 .idea
+data/*
+library/__pycache__/*
