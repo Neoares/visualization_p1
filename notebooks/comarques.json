@@ -78,6 +78,7 @@
 					"type": "Polygon",
 					"properties":
 					{
+						"ID": "6",
 						"CODICOMAR": "6",
 						"NOMCOMAR": "Anoia",
 						"AREACOMAR": 866.6887,
