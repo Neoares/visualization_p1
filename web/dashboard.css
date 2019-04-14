@@ -21,6 +21,9 @@ body {
 #map-title {
     text-align: center;
 }
+#left-pane {
+    border-right: 1px solid grey;
+}
 #right-pane {
     text-align: right;
 }
