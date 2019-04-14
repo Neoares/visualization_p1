@@ -38,7 +38,7 @@ function load() {
         .then(function(myJson) {
             graphs.map = myJson
             graphs.map.config.view.width = Math.round(lpw) - legend_width - 100;
-            graphs.map.vconcat[1].width = graphs.map.config.view.width + legend_width - 100
+            graphs.map.vconcat[1].width = graphs.map.config.view.width + legend_width
             draw('#map', graphs.map)
         });
 
@@ -83,19 +83,7 @@ function load() {
 }
 load()
 
-function resize_charts(e) {
-    var lpw = document.getElementById('left-pane').getBoundingClientRect().width
-    var rpw = document.getElementById('right-pane').getBoundingClientRect().width
-    var legend_width = 221
 
-                graphs.map.config.view.width = Math.round(lpw) - legend_width;
-            graphs.map.vconcat[1].width = Math.round(lpw);
-            draw('#map', graphs.map)
-
-                        graphs.balls.width = Math.round(rpw) - 200
-            draw('#ball', graphs.balls)
-
-}
 
 var which = 1
 function swap_level(event) {
