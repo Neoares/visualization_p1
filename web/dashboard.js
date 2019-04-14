@@ -37,8 +37,8 @@ function load() {
         })
         .then(function(myJson) {
             graphs.map = myJson
-            graphs.map.config.view.width = Math.round(lpw) - legend_width;
-            graphs.map.vconcat[1].width = graphs.map.config.view.width + legend_width
+            graphs.map.config.view.width = Math.round(lpw) - legend_width - 100;
+            graphs.map.vconcat[1].width = graphs.map.config.view.width + legend_width - 100
             draw('#map', graphs.map)
         });
 
@@ -50,7 +50,7 @@ function load() {
         .then(function(myJson) {
             graphs.balls = myJson
             //graphs.balls.config.view.autosize = {"type": "fit", "resize": true, "contains": "padding"}
-            graphs.balls.width = Math.round(rpw) - 250
+            graphs.balls.width = Math.round(rpw) - 150
             graphs.balls.height = window.innerHeight - 300
             draw('#ball', graphs.balls)
         });
@@ -64,7 +64,7 @@ function load() {
             graphs.quant_com = myJson
             //graphs.quant_com.config.view.autosize = {"type": "fit", "resize": true, "contains": "padding"}
             //graphs.quant_com.config.view.width = Math.round(rpw) - 360
-            graphs.quant_com.hconcat[0].width = Math.round(rpw) - 360
+            graphs.quant_com.hconcat[0].width = Math.round(rpw) - 260
             draw('#quant-com', graphs.quant_com)
         });
 
@@ -77,7 +77,7 @@ function load() {
             graphs.ben_com = myJson
             //graphs.ben_com.config.view.autosize = {"type": "fit", "resize": true, "contains": "padding"}
             // graphs.ben_com.config.view.width = Math.round(rpw) - 250
-            graphs.ben_com.hconcat[0].width = Math.round(rpw) - 360
+            graphs.ben_com.hconcat[0].width = Math.round(rpw) - 260
             draw('#ben-com', graphs.ben_com)
         });
 }
