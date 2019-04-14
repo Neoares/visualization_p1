@@ -51,6 +51,7 @@ function load() {
             graphs.balls = myJson
             //graphs.balls.config.view.autosize = {"type": "fit", "resize": true, "contains": "padding"}
             graphs.balls.width = Math.round(rpw) - 250
+            graphs.balls.height = window.innerHeight - 300
             draw('#ball', graphs.balls)
         });
 
