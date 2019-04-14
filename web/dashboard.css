@@ -21,6 +21,15 @@ body {
 #map-title {
     text-align: center;
 }
+#ball-title {
+    text-align: center;
+}
+#quant-title {
+    text-align: center;
+}
+#ben-title {
+    text-align: center;
+}
 #left-pane {
     border-right: 1px solid grey;
 }
