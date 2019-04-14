@@ -8,11 +8,47 @@
     color: red;
 }
 
-#main-grid{
+#main-grid {
   display:grid;
-  grid-template-columns:33% 33% 33%;
-  grid-template-rows: 50% 50%;
+  /*grid-template-columns:33% 33% 33%;
+  grid-template-rows: 50% 50%;*/
+  grid-template-rows = repeat(2, 1fr)
+  grid-template-columns: 1fr 2fr;
 }
+
+#main-grid .map-chart {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#main-grid .quant-fam {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#main-grid .ball-chart {
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+}
+
+#main-grid .quant-com {
+    grid-column: 2 / 4;
+    grid-row: 1;
+}
+
+#main-grid .ben-com {
+    grid-column; 2 / 4;
+    grid-row: 2;
+}
+
+#main-grid .grid-unit > div {
+    /*background-color: blue;*/
+    height: 100%;
+    width: 100%;
+    margin: 10px;
+}
+
+/*
 #left-col{
   grid-column-start:1;
   grid-column-end:2;
@@ -54,9 +90,15 @@
   color: rgb(0, 38, 155);
   text-shadow: 2px 2px rgb(100, 100, 100);
 }
+*/
 .altair-chart{
-  width: auto;
+  /*width: auto;
+  border-style: dashed; margin: 5px;*/
 }
+
+
+
+
 /*html, body {
     height: 100%;
     width: 50%;
