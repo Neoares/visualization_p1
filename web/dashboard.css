@@ -29,3 +29,7 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.small-text {
+    font-size: 0.9em;
+}
