@@ -18,19 +18,31 @@ function draw(selector, data, options=embedOpt) {
 
 var graphs = {'map': undefined, 'quant_fam': undefined, 'balls': undefined, 'quant_com': undefined, 'ben_com': undefined}
 
+/*
 // MAP
 fetch(window.location.origin + '/graphs/map.json')
     .then(function(response) {
         return response.json();
     })
     .then(function(myJson) {
-        myJson.data.url = 'graphs/' + myJson.data.url
+        //myJson.data.url = 'graphs/' + myJson.data.url
         graphs.map = myJson
         draw('#map', myJson)
     });
 
 // QUANT-FAM
 fetch(window.location.origin + '/graphs/graph_quant_fam.json')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(myJson) {
+        graphs.quant_fam = myJson
+        draw('#quant-fam', myJson)
+    });
+*/
+
+// MAP + QUANT-FAM
+fetch(window.location.origin + '/graphs/map_graph_quant_fam.json')
     .then(function(response) {
         return response.json();
     })
