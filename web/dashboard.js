@@ -9,78 +9,92 @@ function showError(el, error){
 
 var embedOpt = {"mode": "vega-lite"};
 
-function draw(selector, data, options=embedOpt) {
+function draw(selector, data, key, options=embedOpt) {
     var el = document.querySelector(selector);
     vegaEmbed(selector, data, options)
+        .then(function (response) {
+            views[key] = response
+        })
         .catch(error => showError(el, error));
 
 }
 
-var graphs = {'map': undefined, 'quant_fam': undefined, 'balls': undefined, 'quant_com': undefined, 'ben_com': undefined}
+// document.body.style.minWidth = window.innerWidth + 'px';
 
-/*
-// MAP
-fetch(window.location.origin + '/graphs/map.json')
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(myJson) {
-        //myJson.data.url = 'graphs/' + myJson.data.url
-        graphs.map = myJson
-        draw('#map', myJson)
-    });
+var lpw = document.getElementById('left-pane').getBoundingClientRect().width
+var rpw = document.getElementById('right-pane').getBoundingClientRect().width
+var legend_width = 221
 
-// QUANT-FAM
-fetch(window.location.origin + '/graphs/graph_quant_fam.json')
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(myJson) {
-        graphs.quant_fam = myJson
-        draw('#quant-fam', myJson)
-    });
-*/
+var graphs = {'map': undefined, 'balls': undefined, 'quant_com': undefined, 'ben_com': undefined}
+var views = {'map': undefined, 'balls': undefined, 'quant_com': undefined, 'ben_com': undefined}
 
-// MAP + QUANT-FAM
-fetch(window.location.origin + '/graphs/map_graph_quant_fam.json')
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(myJson) {
-        graphs.quant_fam = myJson
-        draw('#quant-fam', myJson)
-    });
 
-// BALLS
-fetch(window.location.origin + '/graphs/balls_bqy.json')
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(myJson) {
-        graphs.balls = myJson
-        draw('#ball', myJson)
-    });
+function load() {
+    // MAP + QUANT-FAM
+    fetch(window.location.origin + '/graphs/map_graph_quant_fam.json')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(myJson) {
+            graphs.map = myJson
+            graphs.map.config.view.width = Math.round(lpw) - legend_width;
+            graphs.map.vconcat[1].width = graphs.map.config.view.width + legend_width
+            draw('#map', graphs.map)
+        });
 
-// QUANTITAT / COMARCA
-fetch(window.location.origin + '/graphs/graph_quant_com.json')
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(myJson) {
-        graphs.quant_com = myJson
-        draw('#quant-com', myJson)
-    });
+    // BALLS
+    fetch(window.location.origin + '/graphs/balls_bqy.json')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(myJson) {
+            graphs.balls = myJson
+            //graphs.balls.config.view.autosize = {"type": "fit", "resize": true, "contains": "padding"}
+            graphs.balls.width = Math.round(rpw) - 250
+            draw('#ball', graphs.balls)
+        });
 
-// BENEFICI / COMARCA
-fetch(window.location.origin + '/graphs/graph_benef_comarca.json')
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(myJson) {
-        graphs.ben_com = myJson
-        draw('#ben-com', myJson)
-    });
+    // QUANTITAT / COMARCA
+    fetch(window.location.origin + '/graphs/graph_quant_com.json')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(myJson) {
+            graphs.quant_com = myJson
+            //graphs.quant_com.config.view.autosize = {"type": "fit", "resize": true, "contains": "padding"}
+            //graphs.quant_com.config.view.width = Math.round(rpw) - 360
+            graphs.quant_com.hconcat[0].width = Math.round(rpw) - 360
+            draw('#quant-com', graphs.quant_com)
+        });
 
+    // BENEFICI / COMARCA
+    fetch(window.location.origin + '/graphs/graph_benef_comarca.json')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(myJson) {
+            graphs.ben_com = myJson
+            //graphs.ben_com.config.view.autosize = {"type": "fit", "resize": true, "contains": "padding"}
+            // graphs.ben_com.config.view.width = Math.round(rpw) - 250
+            graphs.ben_com.hconcat[0].width = Math.round(rpw) - 360
+            draw('#ben-com', graphs.ben_com)
+        });
+}
+load()
+
+function resize_charts(e) {
+    var lpw = document.getElementById('left-pane').getBoundingClientRect().width
+    var rpw = document.getElementById('right-pane').getBoundingClientRect().width
+    var legend_width = 221
+
+                graphs.map.config.view.width = Math.round(lpw) - legend_width;
+            graphs.map.vconcat[1].width = Math.round(lpw);
+            draw('#map', graphs.map)
+
+                        graphs.balls.width = Math.round(rpw) - 200
+            draw('#ball', graphs.balls)
+
+}
 
 var which = 1
 function swap_level(event) {
@@ -105,6 +119,5 @@ l2 = document.querySelectorAll('#main-grid .level-2');
 Array.from(l2).map(el => {el.style.display = 'none'})
 
 document.querySelector('#content nav .more-info').addEventListener('click', event => {
-    console.log("clicked")
     swap_level(event)
 })
