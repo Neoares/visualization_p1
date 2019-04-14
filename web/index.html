@@ -39,7 +39,7 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <div>BANC D'ALIMENTS</div>
+                    <div id="title">Impacte de l'activitat del Banc dels Aliments a la província de Barcelona</div>
                     <ul class="navbar-nav ml-auto">
                         <a href="#" id="change-view" class="btn btn-info btn-icon-split more-info">
                             <span class="icon text-white-50">
@@ -54,26 +54,27 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <div id="main-grid">
-                        <!-- left column -->
-                        <div class="map-chart grid-unit">
-                            <div id="map" class="altair-chart"></div>
-                        </div>
-                        <div class="quant-fam grid-unit">
-                            <div id="quant-fam" class="altair-chart"></div>
+                    <div id="main-grid" class="row">
+                        <div id="left-pane" class="col-4">
+                            <div id="map-title">Principal macrofamilia d'aliments per comarca i any</div>
+                            <div class="map-chart grid-unit">
+                                <div id="map" class="altair-chart"></div>
+                            </div>
                         </div>
 
                         <!-- level 1 -->
-                        <div class="ball-chart grid-unit level-1">
-                            <div id="ball" class="altair-chart"></div>
-                        </div>
+                        <div id="right-pane" class="col-8">
+                            <div class="ball-chart grid-unit level-1">
+                                <div id="ball" class="altair-chart"></div>
+                            </div>
 
-                        <!-- level 2 -->
-                        <div class="quant-com grid-unit level-2">
-                            <div id="quant-com" class="altair-chart"></div>
-                        </div>
-                        <div class="ben-com grid-unit level-2">
-                            <div id="ben-com" class="altair-chart"></div>
+                            <!-- level 2 -->
+                            <div class="quant-com grid-unit level-2">
+                                <div id="quant-com" class="altair-chart"></div>
+                            </div>
+                            <div class="ben-com grid-unit level-2">
+                                <div id="ben-com" class="altair-chart"></div>
+                            </div>
                         </div>
 
                     </div>
@@ -109,6 +110,7 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     <script type="text/javascript" src="dashboard.js"></script>
+    <script type="text/javascript" src="size_control.js"></script>
 
 
 </body>
